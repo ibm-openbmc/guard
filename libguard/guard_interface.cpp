@@ -42,8 +42,17 @@ void initialize()
         {
             guard_log(GUARD_ERROR, "Fail to find guard file %s",
                       GUARD_PRSV_PATH);
+            std::string exceptionLog("Guard file does not exist at ");
+            exceptionLog += GUARD_PRSV_PATH;
+            throw InvalidGuardFile(exceptionLog);
         }
         guardFilePath = GUARD_PRSV_PATH;
+    }
+    if (fs::file_size(guardFilePath) == 0)
+    {
+        std::string exceptionLog("Empty Guard file ");
+        exceptionLog += GUARD_PRSV_PATH;
+        throw InvalidGuardFile(exceptionLog);
     }
 #ifndef PGUARD
     // validate magic number, read from 0th position

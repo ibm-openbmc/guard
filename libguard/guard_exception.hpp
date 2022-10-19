@@ -25,6 +25,12 @@ class GuardException : public std::exception
     std::string message;
 };
 
+class InvalidGuardFile : public GuardException
+{
+  public:
+    explicit InvalidGuardFile(const std::string& msg) : GuardException(msg){};
+};
+
 class GuardFileOpenFailed : public GuardException
 {
   public:
